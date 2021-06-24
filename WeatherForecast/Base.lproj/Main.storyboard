@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8N7-MZ-3Cg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ogf-fd-vjI">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -91,27 +91,60 @@
         <!--Login View Controller-->
         <scene sceneID="rFg-QB-GOh">
             <objects>
-                <viewController id="8N7-MZ-3Cg" userLabel="Login View Controller" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="login" id="8N7-MZ-3Cg" userLabel="Login View Controller" customClass="LoginViewController" customModule="WeatherForecast" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2NU-dE-xoe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LKW-kQ-Auu">
-                                <rect key="frame" x="156" y="421" width="102" height="54"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="LOGIN"/>
-                                <connections>
-                                    <segue destination="Ogf-fd-vjI" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="wJg-X1-NXV"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrg-je-24W">
+                                <rect key="frame" x="20" y="64" width="374" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="q3s-xk-SqG">
+                                <rect key="frame" x="20" y="114" width="374" height="114"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1UQ-Hs-Ea6">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4eO-p0-Hb6">
+                                        <rect key="frame" x="0.0" y="39" width="374" height="34"/>
+                                        <nil key="textColor"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7aY-ZN-Gfk">
+                                        <rect key="frame" x="0.0" y="78" width="374" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="LOGIN"/>
+                                        <connections>
+                                            <action selector="firebaseLogin:" destination="8N7-MZ-3Cg" eventType="touchUpInside" id="XLx-Af-439"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1hj-I3-oTs"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="q3s-xk-SqG" firstAttribute="top" secondItem="hrg-je-24W" secondAttribute="bottom" constant="20" id="ARt-mR-wVw"/>
+                            <constraint firstItem="1hj-I3-oTs" firstAttribute="trailing" secondItem="q3s-xk-SqG" secondAttribute="trailing" constant="20" id="GUf-kd-kq1"/>
+                            <constraint firstItem="q3s-xk-SqG" firstAttribute="leading" secondItem="1hj-I3-oTs" secondAttribute="leading" constant="20" id="NY1-PQ-Gv4"/>
+                            <constraint firstItem="hrg-je-24W" firstAttribute="leading" secondItem="1hj-I3-oTs" secondAttribute="leading" constant="20" id="XuT-bc-ExM"/>
+                            <constraint firstItem="1hj-I3-oTs" firstAttribute="trailing" secondItem="hrg-je-24W" secondAttribute="trailing" constant="20" id="fDi-RB-xP3"/>
+                            <constraint firstItem="hrg-je-24W" firstAttribute="top" secondItem="1hj-I3-oTs" secondAttribute="top" constant="20" id="uvf-OR-Unx"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="emailText" destination="1UQ-Hs-Ea6" id="WqK-5D-rau"/>
+                        <outlet property="passwordText" destination="4eO-p0-Hb6" id="zwp-Gi-HkF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Ck-9J-Mg3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-239" y="78"/>
+            <point key="canvasLocation" x="676.81159420289862" y="748.66071428571422"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="E67-ep-fwE">
