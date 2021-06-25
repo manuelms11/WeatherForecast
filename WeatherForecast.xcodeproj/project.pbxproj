@@ -16,6 +16,7 @@
 		8AE94533E00C4DD1EDB089D4 /* Pods_WeatherForecast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB228B7A9ABAFE904C34D447 /* Pods_WeatherForecast.framework */; };
 		A922B59126824D3600FF7B9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A922B59026824D3600FF7B9B /* GoogleService-Info.plist */; };
 		A922B59526851E6F00FF7B9B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A922B59426851E6F00FF7B9B /* LoginViewController.swift */; };
+		A922B5992685390300FF7B9B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A922B5982685390300FF7B9B /* SearchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		97D4BB3C10B1AAB31AFC64E2 /* Pods-WeatherForecast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherForecast.release.xcconfig"; path = "Target Support Files/Pods-WeatherForecast/Pods-WeatherForecast.release.xcconfig"; sourceTree = "<group>"; };
 		A922B59026824D3600FF7B9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A922B59426851E6F00FF7B9B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		A922B5982685390300FF7B9B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		EB228B7A9ABAFE904C34D447 /* Pods_WeatherForecast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherForecast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -76,6 +78,7 @@
 				A922B59026824D3600FF7B9B /* GoogleService-Info.plist */,
 				336DD0B82681977100253C9C /* Info.plist */,
 				A922B59426851E6F00FF7B9B /* LoginViewController.swift */,
+				A922B5982685390300FF7B9B /* SearchViewController.swift */,
 			);
 			path = WeatherForecast;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A922B5992685390300FF7B9B /* SearchViewController.swift in Sources */,
 				A922B59526851E6F00FF7B9B /* LoginViewController.swift in Sources */,
 				336DD0AF2681977000253C9C /* ViewController.swift in Sources */,
 				336DD0AB2681977000253C9C /* AppDelegate.swift in Sources */,
