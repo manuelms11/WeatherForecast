@@ -16,27 +16,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3dl-uI-25h">
-                                <rect key="frame" x="159" y="209" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Sb-7q-6QQ">
-                                <rect key="frame" x="180" y="266" width="55" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Agregar"/>
-                                <connections>
-                                    <action selector="addCity:" destination="yoB-3y-ZT3" eventType="touchUpInside" id="M8e-t5-5UG"/>
-                                </connections>
-                            </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fmn-f0-axW">
+                                <rect key="frame" x="0.0" y="128" width="414" height="734"/>
+                            </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ESa-HC-hYe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ESa-HC-hYe" firstAttribute="bottom" secondItem="fmn-f0-axW" secondAttribute="bottom" id="2Dq-gx-ueb"/>
+                            <constraint firstItem="fmn-f0-axW" firstAttribute="leading" secondItem="ESa-HC-hYe" secondAttribute="leading" id="4FV-W6-ld8"/>
+                            <constraint firstItem="fmn-f0-axW" firstAttribute="top" secondItem="ESa-HC-hYe" secondAttribute="top" constant="40" id="Dqx-Jl-neR"/>
+                            <constraint firstItem="fmn-f0-axW" firstAttribute="trailing" secondItem="ESa-HC-hYe" secondAttribute="trailing" id="EIJ-hr-pNJ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="snC-N2-RCP"/>
                     <connections>
-                        <outlet property="cityNameText" destination="3dl-uI-25h" id="wLn-a1-Trr"/>
+                        <outlet property="mapView" destination="fmn-f0-axW" id="ybo-3C-CYm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wNM-Pu-p2s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -139,7 +134,7 @@
                                     </textField>
                                     <textField opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4eO-p0-Hb6">
                                         <rect key="frame" x="0.0" y="279" width="374" height="34"/>
-                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7aY-ZN-Gfk">

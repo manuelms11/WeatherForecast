@@ -6,40 +6,45 @@
 //
 
 import UIKit
-import FirebaseFirestore
+import MapKit
+import CoreLocation
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, CLLocationManagerDelegate {
 
-    @IBOutlet weak var cityNameText: UITextField!
-    let db = Firestore.firestore()
+    @IBOutlet weak var mapView: MKMapView!
+    
+    let locationManager = CLLocationManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-    
-
-    @IBAction func addCity(_ sender: Any) {
-        // Add a new document with a generated ID
-        var ref: DocumentReference? = nil
-        ref = db.collection("favorites").addDocument(data: [
-            "name": self.cityNameText.text!
-        ]) { err in
-            if let err = err {
-                print("Error adding document: \(err)")
-            } else {
-                print("Document added with ID: \(ref!.documentID)")
-            }
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
         }
+        
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        let initialLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+        mapView.centerToLocation(initialLocation)
     }
-    */
-
 }
+
+private extension MKMapView {
+  func centerToLocation(
+    _ location: CLLocation,
+    regionRadius: CLLocationDistance = 1000
+  ) {
+    let coordinateRegion = MKCoordinateRegion(
+      center: location.coordinate,
+      latitudinalMeters: regionRadius,
+      longitudinalMeters: regionRadius)
+    setRegion(coordinateRegion, animated: true)
+  }
+}
+
