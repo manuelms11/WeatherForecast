@@ -25,6 +25,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
     var selectedCity: Favorite = Favorite(id: 2643743, name: "London", lat: 51.5085, lon: -0.1257)
+    let apiKey = "API_KEY"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +41,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func getForecast() {
-        AF.request("http://api.openweathermap.org/data/2.5/weather?id=\(selectedCity.id)&appid=baeb03b0e9ec31b6617dc6aa6aa6c170").responseDecodable(of: WeatherInfo.self) { result in
+        AF.request("http://api.openweathermap.org/data/2.5/weather?id=\(selectedCity.id)&appid=\(apiKey)").responseDecodable(of: WeatherInfo.self) { result in
             
             if let error = result.error {
                 print(error.localizedDescription)
