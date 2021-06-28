@@ -107,15 +107,15 @@ struct Daily: Codable {
     let moonPhase: Double
     let temp: Temp
     let feelsLike: FeelsLike
-    let pressure, humidity: Int
-    let dewPoint, windSpeed: Double
-    let windDeg: Int
-    let windGust: Double
+    let pressure, humidity: Int?
+    let dewPoint, windSpeed: Double?
+    let windDeg: Int?
+    let windGust: Double?
     let weather: [Weather]
-    let clouds: Int
-    let pop: Double
+    let clouds: Int?
+    let pop: Double?
     let rain: Double?
-    let uvi: Double
+    let uvi: Double?
 
     enum CodingKeys: String, CodingKey {
         case dt, sunrise, sunset, moonrise, moonset

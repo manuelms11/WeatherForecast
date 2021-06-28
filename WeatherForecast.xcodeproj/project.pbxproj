@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3335A8472689910900C487A6 /* ReverseGeocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3335A8462689910900C487A6 /* ReverseGeocoding.swift */; };
 		33696F672688FE0D005D01DC /* FullWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33696F662688FE0D005D01DC /* FullWeather.swift */; };
 		336DD0AB2681977000253C9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336DD0AA2681977000253C9C /* AppDelegate.swift */; };
 		336DD0AD2681977000253C9C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336DD0AC2681977000253C9C /* SceneDelegate.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3335A8462689910900C487A6 /* ReverseGeocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseGeocoding.swift; sourceTree = "<group>"; };
 		33696F662688FE0D005D01DC /* FullWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullWeather.swift; sourceTree = "<group>"; };
 		336DD0A72681977000253C9C /* WeatherForecast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherForecast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		336DD0AA2681977000253C9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				ED2804F32687CDB800DC39B6 /* Location.swift */,
 				ED2804F62687CDDA00DC39B6 /* Latlon.swift */,
 				33696F662688FE0D005D01DC /* FullWeather.swift */,
+				3335A8462689910900C487A6 /* ReverseGeocoding.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				336DD0AB2681977000253C9C /* AppDelegate.swift in Sources */,
 				336DD0AD2681977000253C9C /* SceneDelegate.swift in Sources */,
 				ED2804E226879B6900DC39B6 /* City.swift in Sources */,
+				3335A8472689910900C487A6 /* ReverseGeocoding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
