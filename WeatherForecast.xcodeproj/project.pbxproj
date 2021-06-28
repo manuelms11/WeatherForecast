@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		33696F672688FE0D005D01DC /* FullWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33696F662688FE0D005D01DC /* FullWeather.swift */; };
 		336DD0AB2681977000253C9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336DD0AA2681977000253C9C /* AppDelegate.swift */; };
 		336DD0AD2681977000253C9C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336DD0AC2681977000253C9C /* SceneDelegate.swift */; };
 		336DD0AF2681977000253C9C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336DD0AE2681977000253C9C /* ViewController.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		33696F662688FE0D005D01DC /* FullWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullWeather.swift; sourceTree = "<group>"; };
 		336DD0A72681977000253C9C /* WeatherForecast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherForecast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		336DD0AA2681977000253C9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		336DD0AC2681977000253C9C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				ED2804F02687B88100DC39B6 /* CityItemLink.swift */,
 				ED2804F32687CDB800DC39B6 /* Location.swift */,
 				ED2804F62687CDDA00DC39B6 /* Latlon.swift */,
+				33696F662688FE0D005D01DC /* FullWeather.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				A922B59526851E6F00FF7B9B /* LoginViewController.swift in Sources */,
 				ED2804F12687B88100DC39B6 /* CityItemLink.swift in Sources */,
 				336DD0AF2681977000253C9C /* ViewController.swift in Sources */,
+				33696F672688FE0D005D01DC /* FullWeather.swift in Sources */,
 				336DD0AB2681977000253C9C /* AppDelegate.swift in Sources */,
 				336DD0AD2681977000253C9C /* SceneDelegate.swift in Sources */,
 				ED2804E226879B6900DC39B6 /* City.swift in Sources */,
