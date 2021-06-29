@@ -57,6 +57,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             self.present(loginViewController!, animated: true, completion: nil)
         }
         
+        self.loadFavorites()
+        
     }
 
     // MARK: - ViewLoad
@@ -89,6 +91,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.getOpenWeatherRequest(location: location, requestType: "fullWeather", appID: "4ad5d0f1a33b949d560666d16f95a433")
         self.getOpenWeatherRequest(location: location, requestType: "ReverseGeocoding", appID: "4ad5d0f1a33b949d560666d16f95a433")
             
+        self.loadFavorites()
+        
+      /*  let db = Firestore.firestore()
+        db.collection("favorites").getDocuments { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                }
+            }
+        }*/
+        
+    }
+    
+    func loadFavorites() {
         // MARK: - Getting Favorites
         cities = [City]()
         let favoritesCities = db.collection("favorites")
@@ -116,23 +134,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     }
                     print("CITIES \(self.cities)")
                 }
-            }
+        }
         
-                favoritesTableView.reloadData()
-        
-      /*  let db = Firestore.firestore()
-        db.collection("favorites").getDocuments { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                }
-            }
-        }*/
-        
-	    }
-    
+        favoritesTableView.reloadData()
+    }
     
     // MARK: - Functions
     func isUserLoggedIn() -> Bool {
