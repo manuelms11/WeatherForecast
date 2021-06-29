@@ -12,7 +12,8 @@ import Alamofire
 import CoreLocation
 
 class favoritesCell: UITableViewCell{
-    @IBOutlet weak var cellLocationLabel: favoritesCell!
+    
+    @IBOutlet weak var cellLocationLabel: UILabel?
     @IBOutlet weak var cellIconImageView: UIImageView!
     @IBOutlet weak var cellDescriptionLabel: UILabel!
     
@@ -30,6 +31,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var currentIconImageView: UIImageView!
     
     @IBOutlet weak var favoritesTableView: UITableView!
+    
    /* @IBOutlet weak var cellLocationLabel: UILabel!
     @IBOutlet weak var cellIconImageView: UIImageView!
     @IBOutlet weak var cellDescriptionLabel: UILabel!*/
@@ -137,6 +139,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
       return Auth.auth().currentUser != nil
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            
+            if segue.identifier == "detailSegue" {
+                if let index = self.favoritesTableView.indexPathForSelectedRow {
+                    if let post = self.cities?[index.row] {
+                        let destination = segue.destination as? DetailViewController
+                        destination?.selectedCity
+                    }
+                }
+          /*  } else if segue.identifier == "addSegue" {
+                if let postsSize = self.cities?.count {
+                    let destination = segue.destination as? SearchViewController
+                    destination?.currentPostsSize = postsSize
+                    destination?.delegate = self
+                }
+            }*/
+        }
+    }
+
+    
+    
     func setUIFullWeather(fullWeather: FullWeather){
         self.dateLabel.text = String(unixTimeConverter(unixTime: Double(fullWeather.current.dt), timaZone: "GMT", dateFormat: "EEEE, MMM d"))
         self.tempLabel.text = String(Int(fullWeather.current.temp))+"°C"
@@ -215,8 +238,7 @@ extension ViewController:UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "favoritesCell", for: indexPath) as! favoritesCell
         
         if let cities = self.cities{
-            cell.textLabel?.text = cities[indexPath.row].name
-            cell.cellLocationLabel?.text = "Prueba"
+            cell.cellLocationLabel?.text = cities[indexPath.row].name
         }
         
         return cell

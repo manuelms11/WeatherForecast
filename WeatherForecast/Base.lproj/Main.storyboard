@@ -144,6 +144,9 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.47843137254901957" green="0.61960784313725492" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" systemColor="linkColor"/>
+                                        <constraints>
+                                            <constraint firstItem="eGg-S4-Cly" firstAttribute="top" secondItem="kBW-Cc-St1" secondAttribute="top" id="KCp-Vn-nHP"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7kC-Id-trE" userLabel="Hourly Stack View">
                                         <rect key="frame" x="0.0" y="189.66666666666669" width="335" height="84.666666666666686"/>
@@ -161,7 +164,7 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="69" height="30"/>
                                                                         <state key="normal" title="AGREGAR"/>
                                                                         <connections>
-                                                                            <segue destination="yoB-3y-ZT3" kind="show" id="RbO-YZ-wY0"/>
+                                                                            <segue destination="yoB-3y-ZT3" kind="show" identifier="addSegue" id="RbO-YZ-wY0"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -234,9 +237,10 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="cellDescriptionLabel" destination="Jo0-Eo-ue1" id="ENQ-dL-8nh"/>
-                                                    <outlet property="cellIconImageView" destination="omO-8v-NXh" id="CL0-Rp-ffv"/>
-                                                    <outlet property="cellLocationLabel" destination="tXW-Ay-aGP" id="he6-LE-mqf"/>
+                                                    <outlet property="cellDescriptionLabel" destination="Jo0-Eo-ue1" id="Dfk-KU-pL6"/>
+                                                    <outlet property="cellIconImageView" destination="omO-8v-NXh" id="vUK-1b-Cbh"/>
+                                                    <outlet property="cellLocationLabel" destination="tXW-Ay-aGP" id="aDu-Jt-M1y"/>
+                                                    <segue destination="j4f-ly-mMO" kind="show" identifier="detailSegue" id="iA5-C9-FyV"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -280,7 +284,7 @@
         <!--Detail View Controller-->
         <scene sceneID="FW7-KQ-7lO">
             <objects>
-                <viewController id="j4f-ly-mMO" userLabel="Detail View Controller" sceneMemberID="viewController">
+                <viewController id="j4f-ly-mMO" userLabel="Detail View Controller" customClass="DetailViewController" customModule="WeatherForecast" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Ph-ch-96u">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
