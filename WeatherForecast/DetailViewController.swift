@@ -46,7 +46,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate {
         var fullWeather: FullWeather!
         let baseURL = URL(string: "https://api.openweathermap.org/data/2.5/onecall")!
         let urlRequest = URLRequest(url: baseURL)
-        let fullWeatherParam  = ["lat": String((self.selectedCity?.location.latlon.latitude)!), "lon": String((self.selectedCity?.location.latlon.longitude)!) ,"exclude": "daily,minutely","units": "metric", "appid": "baeb03b0e9ec31b6617dc6aa6aa6c170"]
+        let fullWeatherParam  = ["lat": String((self.selectedCity?.location.latlon.latitude)!), "lon": String((self.selectedCity?.location.latlon.longitude)!) ,"exclude": "daily,minutely","units": "metric", "appid": self.apiKey]
         let encodedURLRequest = try! URLEncoding.queryString.encode(urlRequest, with: fullWeatherParam)
         
         AF.request(encodedURLRequest).responseData{ response in
@@ -54,10 +54,6 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate {
             case let .success(data):
                 do {
                     fullWeather = try JSONDecoder().decode( FullWeather.self, from: data)
-                    
-                    
-                    print(fullWeather.current.feelsLike)
-                    print( String(fullWeather.current.feelsLike))
                     
                     self.cityText.text = self.selectedCity?.name
                     self.tempText.text = String(fullWeather.current.temp)
@@ -70,7 +66,6 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate {
                     self.descriptionText.text = fullWeather.current.weather[0].weatherDescription
                     
                     self.iconImage.loadImageFromURL(url: URL(string: "https://openweathermap.org/img/w/\(fullWeather.current.weather[0].icon).png")!)
-                    
                     
                     let initialLocation = CLLocation(latitude: (self.selectedCity?.location.latlon.latitude)!, longitude: (self.selectedCity?.location.latlon.longitude)!)
                     self.mapView.centerToLocation(initialLocation)
