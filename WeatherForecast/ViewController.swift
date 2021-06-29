@@ -143,9 +143,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
             if segue.identifier == "detailSegue" {
                 if let index = self.favoritesTableView.indexPathForSelectedRow {
-                    if let post = self.cities?[index.row] {
+                    if let city = self.cities?[index.row] {
                         let destination = segue.destination as? DetailViewController
-                        destination?.selectedCity
+                        destination?.selectedCity = city
                     }
                 }
           /*  } else if segue.identifier == "addSegue" {
