@@ -11,11 +11,17 @@ import FirebaseAuth
 import Alamofire
 import CoreLocation
 
+class favoritesCell: UITableViewCell{
+    @IBOutlet weak var cellLocationLabel: favoritesCell!
+    @IBOutlet weak var cellIconImageView: UIImageView!
+    @IBOutlet weak var cellDescriptionLabel: UILabel!
+    
+}
+
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var dailyStackView: UIStackView!
     @IBOutlet weak var hourlyStackView: UIStackView!
-    @IBOutlet weak var favoritesTableView: UITableView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var currentDescriptionLabel: UILabel!
@@ -23,8 +29,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var currentMainLabel: UILabel!
     @IBOutlet weak var currentIconImageView: UIImageView!
     
+    @IBOutlet weak var favoritesTableView: UITableView!
+   /* @IBOutlet weak var cellLocationLabel: UILabel!
+    @IBOutlet weak var cellIconImageView: UIImageView!
+    @IBOutlet weak var cellDescriptionLabel: UILabel!*/
+    
+    
+    
     
     let locationManager = CLLocationManager()
+    let db = Firestore.firestore()
+    var cities:[City]?{
+        didSet{
+            self.favoritesTableView.reloadData()
+        }
+    }    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -45,6 +64,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         /*Setting up UI*/
         dailyStackView.applyShadowDesign()
         hourlyStackView.applyShadowDesign()
+        
         
         func isUserLoggedIn() -> Bool {
           return Auth.auth().currentUser != nil
@@ -68,7 +88,37 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.getOpenWeatherRequest(location: location, requestType: "ReverseGeocoding", appID: "4ad5d0f1a33b949d560666d16f95a433")
             
         // MARK: - Getting Favorites
-        let db = Firestore.firestore()
+        cities = [City]()
+        let favoritesCities = db.collection("favorites")
+        favoritesCities.whereField("active", isEqualTo: true)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                       // var Location
+                        //let city = City(name: , location: <#T##Location#>)
+                        
+                        /*for (name) in cityDictionary.values{
+                            print("\(name[0])")
+                        }*/
+                        
+                        let cityDictionary = document.data()
+                        let cityName = cityDictionary.first{$0.key == "name"}?.value ?? ""
+                        let lat = cityDictionary.first{$0.key == "lat"}?.value ?? ""
+                        let lon = cityDictionary.first{$0.key == "lon"}?.value ?? ""
+                        let city = City(name: cityName as! String, location: Location(latlon: Latlon(latitude: lat as! Double,longitude: lon as! Double)))
+                        print(city)
+                       
+                        self.cities?.append(city)
+                    }
+                    print("CITIES \(self.cities)")
+                }
+            }
+        
+                favoritesTableView.reloadData()
+        
+      /*  let db = Firestore.firestore()
         db.collection("favorites").getDocuments { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -77,8 +127,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     print("\(document.documentID) => \(document.data())")
                 }
             }
-        }
-    }
+        }*/
+        
+	    }
+    
     
     // MARK: - Functions
     func isUserLoggedIn() -> Bool {
@@ -112,7 +164,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     case let .success(data):
                         do {
                             fullWeather = try JSONDecoder().decode( FullWeather.self, from: data)
-                            print("fullWeather Response:  \n",fullWeather as Any)
+                            //print("fullWeather Response:  \n",fullWeather as Any)
                             self.setUIFullWeather(fullWeather: fullWeather )
                         } catch {
                             print("decoding error:\n\(error)")
@@ -134,7 +186,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     case let .success(data):
                         do {
                             reverseGeocoding = try JSONDecoder().decode( ReverseGeocoding.self, from: data)
-                            print("ReverseGeocoding Response:  \n",reverseGeocoding as Any)
+                            //print("ReverseGeocoding Response:  \n",reverseGeocoding as Any)
                             self.setUIReverseGeocoding(reverseGeocoding: reverseGeocoding )
                         } catch {
                             print("decoding error:\n\(error)")
@@ -150,6 +202,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 }
    
 // MARK: - Extensions
+
+extension ViewController:UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let cities = self.cities else {
+           return 0
+          }
+          return cities.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "favoritesCell", for: indexPath) as! favoritesCell
+        
+        if let cities = self.cities{
+            cell.textLabel?.text = cities[indexPath.row].name
+            cell.cellLocationLabel?.text = "Prueba"
+        }
+        
+        return cell
+    }
+}
+
+
+
 extension UIStackView {
     func applyShadowDesign(){
         self.layer.cornerRadius = 10

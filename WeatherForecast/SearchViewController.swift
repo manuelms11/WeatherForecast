@@ -84,7 +84,7 @@ extension SearchViewController:UITableViewDelegate, UITableViewDataSource {
                     do {
                         let result = try JSONDecoder().decode(City.self, from: data)
                         
-                        ref = self.db.collection("favorites").addDocument(data: ["name": city.fullname, "lat": result.location.latlon.latitude, "lon": result.location.latlon.longitude]) { err in
+                        ref = self.db.collection("favorites").addDocument(data: ["name": city.fullname, "lat": result.location.latlon.latitude, "lon": result.location.latlon.longitude,"active": true]) { err in
                             if let err = err {
                                 print("Error adding document: \(err)")
                             } else {
