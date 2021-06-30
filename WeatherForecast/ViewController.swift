@@ -14,6 +14,7 @@ import CoreLocation
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
+    
     @IBOutlet weak var dailyStackView: UIStackView!
     @IBOutlet weak var hourlyStackView: UIStackView!
     @IBOutlet weak var dateLabel: UILabel!
@@ -24,6 +25,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var currentIconImageView: UIImageView!
     
     @IBOutlet weak var favoritesTableView: UITableView!
+    
+    
+    @IBOutlet weak var dailyDate4: UILabel!
+    @IBOutlet weak var dailyIcon4: UIImageView!
+    @IBOutlet weak var dailyTemp4: UILabel!
+    @IBOutlet weak var dailyDate3: UILabel!
+    @IBOutlet weak var dailyIcon3: UIImageView!
+    @IBOutlet weak var dailyTemp3: UILabel!
+    @IBOutlet weak var dailyDate2: UILabel!
+    @IBOutlet weak var dailyIcon2: UIImageView!
+    @IBOutlet weak var dailyTemp2: UILabel!
+    @IBOutlet weak var dailyDate1: UILabel!
+    @IBOutlet weak var dailyIcon1: UIImageView!
+    @IBOutlet weak var dailyTemp1: UILabel!
+    
+    @IBOutlet weak var VStackView1: UIStackView!
+    @IBOutlet weak var VStackView2: UIStackView!
+    @IBOutlet weak var VStackView3: UIStackView!
+    @IBOutlet weak var VStackView4: UIStackView!
+    
     
     
     let locationManager = CLLocationManager()
@@ -44,6 +65,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             self.present(loginViewController!, animated: true, completion: nil)
         }
         
+        // MARK: - Getting current Location
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+        }
+        
+        guard let locValue: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
+        let location: Latlon = Latlon.init(latitude: locValue.latitude, longitude: locValue.longitude)
+        self.getOpenWeatherRequest(location: location, requestType: "fullWeather", appID: "4ad5d0f1a33b949d560666d16f95a433")
+        self.getOpenWeatherRequest(location: location, requestType: "ReverseGeocoding", appID: "4ad5d0f1a33b949d560666d16f95a433")
+        
     }
 
     // MARK: - ViewLoad
@@ -53,25 +89,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         /*Setting up UI*/
         dailyStackView.applyShadowDesign()
-        hourlyStackView.applyShadowDesign()
+        //hourlyStackView.applyShadowDesign()
+        VStackView1.applyShadowDesign()
+        VStackView2.applyShadowDesign()
+        VStackView3.applyShadowDesign()
+        VStackView4.applyShadowDesign()
       
         func isUserLoggedIn() -> Bool {
           return Auth.auth().currentUser != nil
         }
         
-        // MARK: - Getting current Location
-        locationManager.requestAlwaysAuthorization()
-        locationManager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
-        
-        guard let locValue: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
-        let location: Latlon = Latlon.init(latitude: locValue.latitude, longitude: locValue.longitude)
-        self.getOpenWeatherRequest(location: location, requestType: "fullWeather", appID: "4ad5d0f1a33b949d560666d16f95a433")
-        self.getOpenWeatherRequest(location: location, requestType: "ReverseGeocoding", appID: "4ad5d0f1a33b949d560666d16f95a433")
             
         // MARK: - Getting Favorites
         cities = [City]()
@@ -96,6 +123,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             }
         favoritesTableView.reloadData()
     
+       
     }
     
     
@@ -125,13 +153,39 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
     
     
-    func setUIFullWeather(fullWeather: FullWeather){        
+    func setUIFullWeather(fullWeather: FullWeather){
+        let iconURL: String = "https://openweathermap.org/img/wn/" + String(fullWeather.current.weather[0].icon) + ".png"
+        let iconDaily1URL: String = "https://openweathermap.org/img/wn/" + String(fullWeather.daily?[1].weather[0].icon ?? "01d.png") + ".png"
+        let iconDaily2URL: String = "https://openweathermap.org/img/wn/" + String(fullWeather.daily?[2].weather[0].icon ?? "01d.png") + ".png"
+        let iconDaily3URL: String = "https://openweathermap.org/img/wn/" + String(fullWeather.daily?[3].weather[0].icon ?? "01d.png") + ".png"
+        let iconDaily4URL: String = "https://openweathermap.org/img/wn/" + String(fullWeather.daily?[4].weather[0].icon ?? "01d.png") + ".png"
+        
+        //Current Day Info
         self.dateLabel.text = String(unixTimeConverter(unixTime: Double(fullWeather.current.dt), timaZone: "GMT", dateFormat: "EEEE, MMM d"))
         self.tempLabel.text = String(Int(fullWeather.current.temp))+"°C"
         self.currentDescriptionLabel.text = fullWeather.current.weather[0].weatherDescription
-        //self.currentMainLabel.text = fullWeather.current.weather[0].main
-        let iconURL: String = "https://openweathermap.org/img/wn/" + String(fullWeather.current.weather[0].icon) + ".png"
         self.currentIconImageView.loadImageFromURL(url: URL(string: iconURL)!)
+        
+        //Daily 1
+        self.dailyTemp1.text = String(Double((fullWeather.daily?[1].temp.day)!))+"°C"
+        self.dailyIcon1.loadImageFromURL(url: URL(string: iconDaily1URL)!)
+        self.dailyDate1.text = String(unixTimeConverter(unixTime: Double(fullWeather.daily?[1].dt ?? 0), timaZone: "GMT", dateFormat: "MMM d"))
+        
+        //Daily 2
+        self.dailyTemp2.text = String(Double((fullWeather.daily?[2].temp.day)!))+"°C"
+        self.dailyIcon2.loadImageFromURL(url: URL(string: iconDaily2URL)!)
+        self.dailyDate2.text = String(unixTimeConverter(unixTime: Double(fullWeather.daily?[2].dt ?? 0), timaZone: "GMT", dateFormat: "MMM d"))
+        
+        //Daily 3
+        self.dailyTemp3.text = String(Double((fullWeather.daily?[3].temp.day)!))+"°C"
+        self.dailyIcon3.loadImageFromURL(url: URL(string: iconDaily3URL)!)
+        self.dailyDate3.text = String(unixTimeConverter(unixTime: Double(fullWeather.daily?[3].dt ?? 0), timaZone: "GMT", dateFormat: "MMM d"))
+        
+        //Daily 4
+        self.dailyTemp4.text = String(Double((fullWeather.daily?[4].temp.day)!))+"°C"
+        self.dailyIcon4.loadImageFromURL(url: URL(string: iconDaily4URL)!)
+        self.dailyDate4.text = String(unixTimeConverter(unixTime: Double(fullWeather.daily?[4].dt ?? 0), timaZone: "GMT", dateFormat: "MMM d"))
+    
     }
     
     func setUIFullWeatherCell(fullWeather: FullWeather, cell: FavoritesCell){
@@ -157,7 +211,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if requestType == "fullWeather" || requestType == "fullWeatherCell" {
             baseURL = URL(string: "https://api.openweathermap.org/data/2.5/onecall")!
             let urlRequest = URLRequest(url: baseURL)
-            let fullWeatherParam  = ["lat": String(location.latitude), "lon": String(location.longitude) ,"exclude": "daily,minutely","units": "metric", "appid": appID]
+            let fullWeatherParam  = ["lat": String(location.latitude), "lon": String(location.longitude) ,"exclude": "hourly,minutely","units": "metric", "appid": appID]
             encodedURLRequest = try! URLEncoding.queryString.encode(urlRequest, with: fullWeatherParam)
         }
         if requestType == "ReverseGeocoding"{
@@ -217,8 +271,8 @@ extension ViewController:UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let cellSpacingHeight: CGFloat = 1.5
-            return cellSpacingHeight
+        let cellSpacingHeight: CGFloat = 0.001
+        return cellSpacingHeight
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
