@@ -23,6 +23,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var cityText: UILabel!
+    @IBOutlet weak var infoStackView: UIStackView!
     
     let locationManager = CLLocationManager()
     var selectedCity : City?
@@ -30,6 +31,9 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.infoStackView.applyShadowDesign()
+        
         self.getForecast()
         
         locationManager.requestAlwaysAuthorization()
