@@ -90,25 +90,25 @@
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="177"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGg-S4-Cly">
-                                                <rect key="frame" x="144.66666666666666" y="0.0" width="46" height="20.333333333333332"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <rect key="frame" x="147" y="0.0" width="41.333333333333343" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed, 11 Nov" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmq-8W-Fai" userLabel="CurrentDateLabel">
-                                                <rect key="frame" x="121" y="20.333333333333343" width="93" height="20.333333333333329"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <rect key="frame" x="114" y="18" width="107" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vQ6-tq-fWf" userLabel="HStack View">
-                                                <rect key="frame" x="91.333333333333329" y="40.666666666666657" width="152.33333333333337" height="116"/>
+                                                <rect key="frame" x="91.333333333333329" y="42" width="152.33333333333337" height="111"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fz5-My-iJO" userLabel="HStack View">
-                                                        <rect key="frame" x="0.0" y="0.0" width="67" height="116"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="67" height="111"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="67" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3io-EZ-EG4" userLabel="CurrentTempLabel">
-                                                                <rect key="frame" x="0.0" y="0.0" width="67" height="116"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="67" height="111"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="57"/>
                                                                 <color key="textColor" systemColor="systemYellowColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -116,14 +116,14 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nDn-qh-18R" userLabel="HStack View">
-                                                        <rect key="frame" x="67.000000000000028" y="0.0" width="85.333333333333343" height="116"/>
+                                                        <rect key="frame" x="67.000000000000028" y="0.0" width="85.333333333333343" height="111"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gLV-Xo-lZC">
-                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="116"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="111"/>
                                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" scale="large"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mFo-Ng-fQF" userLabel="CurrentDescription">
-                                                                <rect key="frame" x="50" y="0.0" width="35.333333333333343" height="116"/>
+                                                                <rect key="frame" x="50" y="0.0" width="35.333333333333343" height="111"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -133,13 +133,13 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7s-MQ-85B" userLabel="CurrentLocationLabel">
-                                                <rect key="frame" x="123.66666666666666" y="156.66666666666669" width="88" height="20.333333333333343"/>
+                                                <rect key="frame" x="117" y="153" width="101" height="24"/>
                                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                                 <string key="text">Boston, MA
 
 
 </string>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
