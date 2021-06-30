@@ -11,13 +11,6 @@ import FirebaseAuth
 import Alamofire
 import CoreLocation
 
-class favoritesCell: UITableViewCell{
-    
-    @IBOutlet weak var cellLocationLabel: UILabel?
-    @IBOutlet weak var cellIconImageView: UIImageView!
-    @IBOutlet weak var cellDescriptionLabel: UILabel!
-    
-}
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -31,12 +24,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var currentIconImageView: UIImageView!
     
     @IBOutlet weak var favoritesTableView: UITableView!
-    
-   /* @IBOutlet weak var cellLocationLabel: UILabel!
-    @IBOutlet weak var cellIconImageView: UIImageView!
-    @IBOutlet weak var cellDescriptionLabel: UILabel!*/
-    
-    
     
     
     let locationManager = CLLocationManager()
@@ -63,16 +50,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
         /*Setting up UI*/
         dailyStackView.applyShadowDesign()
         hourlyStackView.applyShadowDesign()
-        
-        
+      
         func isUserLoggedIn() -> Bool {
           return Auth.auth().currentUser != nil
         }
         
-        /*Getting current location*/
+        // MARK: - Getting current Location
         locationManager.requestAlwaysAuthorization()
         locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
@@ -81,9 +68,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             locationManager.startUpdatingLocation()
         }
         
-        
-        
-        // MARK: - Getting current Location
         guard let locValue: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
         let location: Latlon = Latlon.init(latitude: locValue.latitude, longitude: locValue.longitude)
         self.getOpenWeatherRequest(location: location, requestType: "fullWeather", appID: "4ad5d0f1a33b949d560666d16f95a433")
@@ -98,40 +82,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     print("Error getting documents: \(err)")
                 } else {
                     for document in querySnapshot!.documents {
-                       // var Location
-                        //let city = City(name: , location: <#T##Location#>)
-                        
-                        /*for (name) in cityDictionary.values{
-                            print("\(name[0])")
-                        }*/
-                        
+
                         let cityDictionary = document.data()
                         let cityName = cityDictionary.first{$0.key == "name"}?.value ?? ""
                         let lat = cityDictionary.first{$0.key == "lat"}?.value ?? ""
                         let lon = cityDictionary.first{$0.key == "lon"}?.value ?? ""
                         let city = City(name: cityName as! String, location: Location(latlon: Latlon(latitude: lat as! Double,longitude: lon as! Double)))
-                        print(city)
-                       
+                     //   print(city)
                         self.cities?.append(city)
                     }
-                    print("CITIES \(self.cities)")
+                   // print("CITIES \(self.cities)")
                 }
             }
-        
-                favoritesTableView.reloadData()
-        
-      /*  let db = Firestore.firestore()
-        db.collection("favorites").getDocuments { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                }
-            }
-        }*/
-        
-	    }
+        favoritesTableView.reloadData()
+    
+    }
     
     
     // MARK: - Functions
@@ -160,7 +125,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
     
     
-    func setUIFullWeather(fullWeather: FullWeather){
+    func setUIFullWeather(fullWeather: FullWeather){        
         self.dateLabel.text = String(unixTimeConverter(unixTime: Double(fullWeather.current.dt), timaZone: "GMT", dateFormat: "EEEE, MMM d"))
         self.tempLabel.text = String(Int(fullWeather.current.temp))+"°C"
         self.currentDescriptionLabel.text = fullWeather.current.weather[0].weatherDescription
@@ -169,54 +134,63 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.currentIconImageView.loadImageFromURL(url: URL(string: iconURL)!)
     }
     
+    func setUIFullWeatherCell(fullWeather: FullWeather, cell: FavoritesCell){
+        
+        let iconURL: String = "https://openweathermap.org/img/wn/" + String(fullWeather.current.weather[0].icon) + ".png"
+        cell.clipsToBounds = true
+        cell.layer.cornerRadius = 10
+        cell.layer.shadowOpacity = 1
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+        
+        cell.cellDescriptionLabel.text = String(Int(fullWeather.current.temp))+"°C"
+        cell.cellIconImageView.loadImageFromURL(url: URL(string: iconURL)!)
+    }
+    
     func setUIReverseGeocoding(reverseGeocoding: ReverseGeocoding){
         self.locationLabel.text = reverseGeocoding[0].name + ", " + reverseGeocoding[0].country
     }
     
-    func getOpenWeatherRequest(location: Latlon, requestType: String, appID: String){
+    func getOpenWeatherRequest(location: Latlon, requestType: String, appID: String, cell: FavoritesCell? = nil){
         var baseURL: URL
-        if requestType == "fullWeather"{
-            var fullWeather: FullWeather!
+        var encodedURLRequest: URLRequest!
+        
+        if requestType == "fullWeather" || requestType == "fullWeatherCell" {
             baseURL = URL(string: "https://api.openweathermap.org/data/2.5/onecall")!
             let urlRequest = URLRequest(url: baseURL)
             let fullWeatherParam  = ["lat": String(location.latitude), "lon": String(location.longitude) ,"exclude": "daily,minutely","units": "metric", "appid": appID]
-            let encodedURLRequest = try! URLEncoding.queryString.encode(urlRequest, with: fullWeatherParam)
-    
-            AF.request(encodedURLRequest).responseData{ response in
-                switch response.result {
-                    case let .success(data):
-                        do {
-                            fullWeather = try JSONDecoder().decode( FullWeather.self, from: data)
-                            //print("fullWeather Response:  \n",fullWeather as Any)
-                            self.setUIFullWeather(fullWeather: fullWeather )
-                        } catch {
-                            print("decoding error:\n\(error)")
-                        }
-                    case let .failure(error):
-                        print(error.localizedDescription)
-                }
-            }
+            encodedURLRequest = try! URLEncoding.queryString.encode(urlRequest, with: fullWeatherParam)
         }
         if requestType == "ReverseGeocoding"{
-            var reverseGeocoding: ReverseGeocoding!
             baseURL = URL(string: "https://api.openweathermap.org/geo/1.0/reverse")!
             let urlRequest = URLRequest(url: baseURL)
             let reverseGeocodingParam  = ["lat": String(location.latitude), "lon": String(location.longitude) ,"limit": "1", "appid": appID]
-            let encodedURLRequest = try! URLEncoding.queryString.encode(urlRequest, with: reverseGeocodingParam)
-            
-            AF.request(encodedURLRequest).responseData{ response in
-                switch response.result {
-                    case let .success(data):
-                        do {
-                            reverseGeocoding = try JSONDecoder().decode( ReverseGeocoding.self, from: data)
-                            //print("ReverseGeocoding Response:  \n",reverseGeocoding as Any)
-                            self.setUIReverseGeocoding(reverseGeocoding: reverseGeocoding )
-                        } catch {
-                            print("decoding error:\n\(error)")
+            encodedURLRequest = try! URLEncoding.queryString.encode(urlRequest, with: reverseGeocodingParam)
+        }
+        
+        AF.request(encodedURLRequest).responseData{ response in
+            switch response.result {
+                case let .success(data):
+                    do {
+                        if requestType == "fullWeather"{
+                            var fullWeather: FullWeather!
+                            fullWeather = try JSONDecoder().decode( FullWeather.self, from: data)
+                            self.setUIFullWeather(fullWeather: fullWeather )
                         }
-                    case let .failure(error):
-                        print(error.localizedDescription)
-                }
+                        else if requestType == "ReverseGeocoding"{
+                            var reverseGeocoding: ReverseGeocoding!
+                            reverseGeocoding = try JSONDecoder().decode( ReverseGeocoding.self, from: data)
+                            self.setUIReverseGeocoding(reverseGeocoding: reverseGeocoding)
+                        }
+                        else if requestType == "fullWeatherCell"{
+                            var fullWeather: FullWeather!
+                            fullWeather = try JSONDecoder().decode( FullWeather.self, from: data)
+                            self.setUIFullWeatherCell(fullWeather: fullWeather, cell: cell! )
+                        }
+                    } catch {
+                        print("decoding error:\n\(error)")
+                    }
+                case let .failure(error):
+                    print(error.localizedDescription)
             }
         }
 
@@ -228,19 +202,34 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
 extension ViewController:UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+          return 1
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         guard let cities = self.cities else {
            return 0
           }
           return cities.count
     }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let cellSpacingHeight: CGFloat = 1.5
+            return cellSpacingHeight
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "favoritesCell", for: indexPath) as! favoritesCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoritesCell", for: indexPath) as! FavoritesCell
+       
         
         if let cities = self.cities{
-            cell.cellLocationLabel?.text = cities[indexPath.row].name
+            getOpenWeatherRequest(location: cities[indexPath.section].location.latlon, requestType: "fullWeatherCell", appID: "4ad5d0f1a33b949d560666d16f95a433", cell: cell)
+            cell.cellLocationLabel?.text = cities[indexPath.section].name
+            /*cell.cellContentView.applyShadowDesignUIView()*/
         }
-        
         return cell
     }
 }
@@ -250,14 +239,13 @@ extension ViewController:UITableViewDelegate, UITableViewDataSource{
 extension UIStackView {
     func applyShadowDesign(){
         self.layer.cornerRadius = 10
-        self.layer.shadowOpacity = 0.5
-        self.layer.shadowOffset = CGSize(width: 0, height: 2)
+        self.layer.shadowOpacity = 0.2
+        self.layer.shadowOffset = CGSize(width: 0, height: 4)
     }
 }
 
-extension ViewController {
+extension UIViewController {
     func unixTimeConverter(unixTime: Double, timaZone: String, dateFormat: String) -> String{
-        
         let unixTimestamp = unixTime
         let date = Date(timeIntervalSince1970: unixTimestamp)
         let dateFormatter = DateFormatter()
@@ -283,5 +271,4 @@ extension UIImageView {
         }
     }
 }
-
 

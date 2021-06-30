@@ -46,7 +46,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate {
         var fullWeather: FullWeather!
         let baseURL = URL(string: "https://api.openweathermap.org/data/2.5/onecall")!
         let urlRequest = URLRequest(url: baseURL)
-        let fullWeatherParam  = ["lat": String((self.selectedCity?.location.latlon.latitude)!), "lon": String((self.selectedCity?.location.latlon.longitude)!) ,"exclude": "daily,minutely","units": "metric", "appid": self.apiKey]
+        let fullWeatherParam  = ["lat": String((self.selectedCity?.location.latlon.latitude)!), "lon": String((self.selectedCity?.location.latlon.longitude)!) ,"exclude": "daily,minutely","units": "metric", "appid": "4ad5d0f1a33b949d560666d16f95a433"]
         let encodedURLRequest = try! URLEncoding.queryString.encode(urlRequest, with: fullWeatherParam)
         
         AF.request(encodedURLRequest).responseData{ response in
@@ -54,14 +54,13 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate {
             case let .success(data):
                 do {
                     fullWeather = try JSONDecoder().decode( FullWeather.self, from: data)
-                    
                     self.cityText.text = self.selectedCity?.name
-                    self.tempText.text = String(fullWeather.current.temp)
-                    self.feelsLikeText.text = String(fullWeather.current.feelsLike)
-                    self.sunriseText.text = String(fullWeather.current.sunrise!)
-                    self.sunsetText.text = String(fullWeather.current.sunset!)
-                    self.pressureText.text = String(fullWeather.current.pressure)
-                    self.humidityText.text = String(fullWeather.current.humidity)
+                    self.tempText.text = String(fullWeather.current.temp)+"°C"
+                    self.feelsLikeText.text = String(fullWeather.current.feelsLike)+"°C"
+                    self.sunriseText.text = String(self.unixTimeConverter(unixTime: Double(fullWeather.current.sunrise!), timaZone: "GMT", dateFormat: "MMM d, h:mm a"))
+                    self.sunsetText.text = String(self.unixTimeConverter(unixTime: Double(fullWeather.current.sunset!), timaZone: "GMT", dateFormat: "MMM d, h:mm a"))
+                    self.pressureText.text = String(fullWeather.current.pressure) + " mbar"
+                    self.humidityText.text = String(fullWeather.current.humidity) + " %"
                     self.mainText.text = fullWeather.current.weather[0].main
                     self.descriptionText.text = fullWeather.current.weather[0].weatherDescription
                     

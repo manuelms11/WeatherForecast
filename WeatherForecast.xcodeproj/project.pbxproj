@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3335A8472689910900C487A6 /* ReverseGeocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3335A8462689910900C487A6 /* ReverseGeocoding.swift */; };
+		334AFF73268BC03400DD4BDC /* FavoritesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334AFF72268BC03400DD4BDC /* FavoritesCell.swift */; };
 		33696F672688FE0D005D01DC /* FullWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33696F662688FE0D005D01DC /* FullWeather.swift */; };
 		336DD0AB2681977000253C9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336DD0AA2681977000253C9C /* AppDelegate.swift */; };
 		336DD0AD2681977000253C9C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336DD0AC2681977000253C9C /* SceneDelegate.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		3335A8462689910900C487A6 /* ReverseGeocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseGeocoding.swift; sourceTree = "<group>"; };
+		334AFF72268BC03400DD4BDC /* FavoritesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCell.swift; sourceTree = "<group>"; };
 		33696F662688FE0D005D01DC /* FullWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullWeather.swift; sourceTree = "<group>"; };
 		336DD0A72681977000253C9C /* WeatherForecast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherForecast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		336DD0AA2681977000253C9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			children = (
 				ED2804DC26879B1400DC39B6 /* Model */,
 				336DD0AA2681977000253C9C /* AppDelegate.swift */,
+				334AFF72268BC03400DD4BDC /* FavoritesCell.swift */,
 				336DD0AC2681977000253C9C /* SceneDelegate.swift */,
 				336DD0AE2681977000253C9C /* ViewController.swift */,
 				33E4C971268ACA1500E64054 /* DetailViewController.swift */,
@@ -260,6 +263,7 @@
 				ED2804EB2687B6C100DC39B6 /* CityResults.swift in Sources */,
 				A922B5992685390300FF7B9B /* SearchViewController.swift in Sources */,
 				ED2804E52687B2F300DC39B6 /* SearchCity.swift in Sources */,
+				334AFF73268BC03400DD4BDC /* FavoritesCell.swift in Sources */,
 				ED2804F72687CDDA00DC39B6 /* Latlon.swift in Sources */,
 				ED2804E82687B4AD00DC39B6 /* Embedded.swift in Sources */,
 				ED2804F42687CDB800DC39B6 /* Location.swift in Sources */,

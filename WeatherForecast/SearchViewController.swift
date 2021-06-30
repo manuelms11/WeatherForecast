@@ -88,7 +88,7 @@ extension SearchViewController:UITableViewDelegate, UITableViewDataSource {
                             if let err = err {
                                 print("Error adding document: \(err)")
                             } else {
-                                //print("Document added with ID: \(ref!.documentID)")
+                                print("Document added with ID: \(ref!.documentID)")
                             }
                         }
                     } catch {
