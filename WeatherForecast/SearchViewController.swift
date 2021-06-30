@@ -91,6 +91,8 @@ extension SearchViewController:UITableViewDelegate, UITableViewDataSource {
                                 print("Document added with ID: \(ref!.documentID)")
                             }
                         }
+                        
+                        _ = self.navigationController?.popViewController(animated: true)
                     } catch {
                         print("decoding error:\n\(error)")
                     }

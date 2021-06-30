@@ -368,7 +368,13 @@
                             <constraint firstAttribute="bottom" secondItem="EeF-1y-LOC" secondAttribute="bottom" constant="20" id="trB-Hu-ikP"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="TbN-4Q-970"/>
+                    <navigationItem key="navigationItem" id="TbN-4Q-970">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" style="plain" id="J0t-Vy-7We">
+                            <connections>
+                                <action selector="logOut:" destination="BYZ-38-t0r" id="cyA-O4-eeJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="VStackView1" destination="56P-aj-5ce" id="EQ0-Eu-tgE"/>
                         <outlet property="VStackView2" destination="96a-e1-3aX" id="T4K-so-L08"/>
@@ -587,15 +593,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_bg" translatesAutoresizingMaskIntoConstraints="NO" id="C8j-6Z-EdL">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
-                            </imageView>
                             <visualEffectView opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d8V-hY-wT0">
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="avz-zq-9jm">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="734"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
+                                <color key="backgroundColor" systemColor="systemYellowColor"/>
                                 <blurEffect style="regular"/>
                             </visualEffectView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="q3s-xk-SqG">
@@ -635,22 +639,13 @@
                             <constraint firstItem="q3s-xk-SqG" firstAttribute="leading" secondItem="1hj-I3-oTs" secondAttribute="leading" constant="20" id="0N5-2t-Sig"/>
                             <constraint firstItem="d8V-hY-wT0" firstAttribute="top" secondItem="1hj-I3-oTs" secondAttribute="top" id="0jT-AR-VRz"/>
                             <constraint firstItem="1hj-I3-oTs" firstAttribute="bottom" secondItem="d8V-hY-wT0" secondAttribute="bottom" id="5yx-ae-yOx"/>
-                            <constraint firstItem="1hj-I3-oTs" firstAttribute="bottom" secondItem="C8j-6Z-EdL" secondAttribute="bottom" id="9JE-yQ-pLc"/>
                             <constraint firstItem="1hj-I3-oTs" firstAttribute="trailing" secondItem="q3s-xk-SqG" secondAttribute="trailing" constant="20" id="Dkx-vI-7hv"/>
                             <constraint firstItem="1hj-I3-oTs" firstAttribute="trailing" secondItem="q3s-xk-SqG" secondAttribute="trailing" constant="20" id="GUf-kd-kq1"/>
                             <constraint firstItem="q3s-xk-SqG" firstAttribute="leading" secondItem="1hj-I3-oTs" secondAttribute="leading" constant="20" id="NY1-PQ-Gv4"/>
-                            <constraint firstItem="C8j-6Z-EdL" firstAttribute="leading" secondItem="1hj-I3-oTs" secondAttribute="leading" id="NnD-NP-y6W"/>
-                            <constraint firstItem="C8j-6Z-EdL" firstAttribute="top" secondItem="2NU-dE-xoe" secondAttribute="top" id="OY0-Xf-c2S"/>
-                            <constraint firstItem="C8j-6Z-EdL" firstAttribute="leading" secondItem="2NU-dE-xoe" secondAttribute="leading" id="Oka-GS-uov"/>
-                            <constraint firstItem="C8j-6Z-EdL" firstAttribute="top" secondItem="2NU-dE-xoe" secondAttribute="top" id="P3R-Dr-qTn"/>
                             <constraint firstAttribute="trailing" secondItem="d8V-hY-wT0" secondAttribute="trailing" id="SBM-lg-7Qo"/>
-                            <constraint firstItem="C8j-6Z-EdL" firstAttribute="top" secondItem="2NU-dE-xoe" secondAttribute="top" id="WnJ-cm-8UW"/>
-                            <constraint firstItem="C8j-6Z-EdL" firstAttribute="leading" secondItem="1hj-I3-oTs" secondAttribute="leading" id="YsL-sf-DDT"/>
                             <constraint firstItem="1hj-I3-oTs" firstAttribute="trailing" secondItem="q3s-xk-SqG" secondAttribute="trailing" constant="20" id="ZxC-UX-fef"/>
                             <constraint firstItem="q3s-xk-SqG" firstAttribute="top" secondItem="1hj-I3-oTs" secondAttribute="top" constant="100" id="c82-T9-j5L"/>
-                            <constraint firstAttribute="trailing" secondItem="C8j-6Z-EdL" secondAttribute="trailing" id="eYs-Xp-dWl"/>
                             <constraint firstItem="d8V-hY-wT0" firstAttribute="leading" secondItem="1hj-I3-oTs" secondAttribute="leading" id="mzp-76-nas"/>
-                            <constraint firstItem="C8j-6Z-EdL" firstAttribute="trailing" secondItem="1hj-I3-oTs" secondAttribute="trailing" id="uMk-iL-dZ7"/>
                             <constraint firstItem="q3s-xk-SqG" firstAttribute="leading" secondItem="1hj-I3-oTs" secondAttribute="leading" constant="20" id="zEl-nC-cMa"/>
                         </constraints>
                     </view>
@@ -685,7 +680,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="login_bg" width="386" height="699"/>
         <image name="logo" width="225" height="225"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="linkColor">

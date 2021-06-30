@@ -65,6 +65,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             self.present(loginViewController!, animated: true, completion: nil)
         }
         
+        self.loadFavorites()
+        
         // MARK: - Getting current Location
         locationManager.requestAlwaysAuthorization()
         locationManager.requestWhenInUseAuthorization()
@@ -94,14 +96,31 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         VStackView2.applyShadowDesign()
         VStackView3.applyShadowDesign()
         VStackView4.applyShadowDesign()
-      
-        func isUserLoggedIn() -> Bool {
-          return Auth.auth().currentUser != nil
-        }
-        
             
         // MARK: - Getting Favorites
         cities = [City]()
+        
+        favoritesTableView.reloadData()
+    
+    }
+    
+    @IBAction func logOut(_ sender: Any) {
+        try! Auth.auth().signOut()
+        
+        let loginViewController = storyboard?.instantiateViewController(identifier: "login") as?
+            LoginViewController
+
+        loginViewController?.modalPresentationStyle = .overCurrentContext
+        self.present(loginViewController!, animated: true, completion: nil)
+    }
+    
+    // MARK: - Functions
+    func isUserLoggedIn() -> Bool {
+      return Auth.auth().currentUser != nil
+    }
+    
+    func loadFavorites() {
+        self.cities = []
         let favoritesCities = db.collection("favorites")
         favoritesCities.whereField("active", isEqualTo: true)
             .getDocuments() { (querySnapshot, err) in
@@ -114,22 +133,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                         let cityName = cityDictionary.first{$0.key == "name"}?.value ?? ""
                         let lat = cityDictionary.first{$0.key == "lat"}?.value ?? ""
                         let lon = cityDictionary.first{$0.key == "lon"}?.value ?? ""
-                        let city = City(name: cityName as! String, location: Location(latlon: Latlon(latitude: lat as! Double,longitude: lon as! Double)))
+                        let city = City(id: document.documentID, name: cityName as! String, location: Location(latlon: Latlon(latitude: lat as! Double,longitude: lon as! Double)))
                      //   print(city)
                         self.cities?.append(city)
                     }
                    // print("CITIES \(self.cities)")
                 }
             }
-        favoritesTableView.reloadData()
-    
-       
+        
+        self.favoritesTableView.reloadData()
     }
     
-    
-    // MARK: - Functions
-    func isUserLoggedIn() -> Bool {
-      return Auth.auth().currentUser != nil
+    func removeFavorite(city: City) {
+        
+        db.collection("favorites").document(city.id!).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+                self.loadFavorites()
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -285,6 +309,17 @@ extension ViewController:UITableViewDelegate, UITableViewDataSource{
             /*cell.cellContentView.applyShadowDesignUIView()*/
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let contextItem = UIContextualAction(style: .destructive, title: "Borrar") { (action, view, bool) in
+            let city = self.cities![indexPath.row]
+            self.removeFavorite(city: city)
+        }
+        
+        let swipeAction = UISwipeActionsConfiguration(actions: [contextItem])
+        
+        return swipeAction
     }
 }
 
