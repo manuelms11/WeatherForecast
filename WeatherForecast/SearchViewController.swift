@@ -51,14 +51,38 @@ class SearchViewController: UIViewController {
 }
 
 extension SearchViewController:UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if cities.count == 0 {
+            tableView.setEmptyMessage("Search for cities")
+        } else {
+            tableView.restore()
+        }
         return cities.count
+    }
+        
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let cellSpacingHeight: CGFloat = 0.001
+        return cellSpacingHeight
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath)
         
-        cell.textLabel?.text = cities[indexPath.row].fullname
+        cell.clipsToBounds = true
+        cell.layer.cornerRadius = 10
+        cell.layer.shadowOpacity = 1
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2)
+        
+        cell.textLabel?.text = cities[indexPath.section].fullname
 
         return cell
     }

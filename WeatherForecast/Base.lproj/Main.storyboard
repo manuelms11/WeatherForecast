@@ -18,31 +18,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3dl-uI-25h">
-                                <rect key="frame" x="16" y="111" width="301" height="34"/>
+                                <rect key="frame" x="20" y="108" width="281" height="34"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="301" id="xm3-ku-LgY"/>
+                                    <constraint firstAttribute="height" constant="34" id="VIz-JM-29a"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Sb-7q-6QQ">
-                                <rect key="frame" x="342" y="113" width="33" height="30"/>
-                                <state key="normal" title="Buscar"/>
-                                <connections>
-                                    <action selector="addCity:" destination="yoB-3y-ZT3" eventType="touchUpInside" id="M8e-t5-5UG"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wf9-0V-nno">
-                                <rect key="frame" x="20" y="169" width="335" height="609"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Wf9-0V-nno">
+                                <rect key="frame" x="20" y="162" width="335" height="616"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="fbv-oJ-w6A">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="335" height="43.666667938232422"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchCell" id="fbv-oJ-w6A">
+                                        <rect key="frame" x="0.0" y="49" width="335" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fbv-oJ-w6A" id="Sjt-AF-DrZ">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" systemColor="systemYellowColor"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemYellowColor"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -50,19 +45,30 @@
                                     <outlet property="delegate" destination="yoB-3y-ZT3" id="dDT-h7-r4D"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Sb-7q-6QQ">
+                                <rect key="frame" x="321" y="108" width="34" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="N8F-Gq-4FY"/>
+                                    <constraint firstAttribute="width" constant="34" id="bQv-pV-Izz"/>
+                                </constraints>
+                                <state key="normal" title="Busca" image="magnifyingglass" catalog="system"/>
+                                <connections>
+                                    <action selector="addCity:" destination="yoB-3y-ZT3" eventType="touchUpInside" id="M8e-t5-5UG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ESa-HC-hYe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ESa-HC-hYe" firstAttribute="trailing" secondItem="Wf9-0V-nno" secondAttribute="trailing" constant="20" id="3Ej-BQ-HQC"/>
-                            <constraint firstItem="Wf9-0V-nno" firstAttribute="top" secondItem="3dl-uI-25h" secondAttribute="bottom" constant="24" id="CNP-6g-hWu"/>
-                            <constraint firstItem="3dl-uI-25h" firstAttribute="centerY" secondItem="6Sb-7q-6QQ" secondAttribute="centerY" id="Km6-yA-szd"/>
-                            <constraint firstItem="6Sb-7q-6QQ" firstAttribute="leading" secondItem="3dl-uI-25h" secondAttribute="trailing" constant="25" id="Pzq-dp-V0F"/>
-                            <constraint firstItem="ESa-HC-hYe" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6Sb-7q-6QQ" secondAttribute="trailing" id="SY8-B7-XaD"/>
-                            <constraint firstItem="6Sb-7q-6QQ" firstAttribute="top" secondItem="ESa-HC-hYe" secondAttribute="top" constant="25" id="cJu-66-5D1"/>
-                            <constraint firstItem="3dl-uI-25h" firstAttribute="leading" secondItem="isC-2z-2os" secondAttribute="leadingMargin" id="cMV-hU-LQQ"/>
-                            <constraint firstItem="Wf9-0V-nno" firstAttribute="leading" secondItem="ESa-HC-hYe" secondAttribute="leading" constant="20" id="hW7-eu-ZKf"/>
-                            <constraint firstItem="Wf9-0V-nno" firstAttribute="bottom" secondItem="ESa-HC-hYe" secondAttribute="bottom" id="uIZ-Kw-UW5"/>
+                            <constraint firstItem="3dl-uI-25h" firstAttribute="leading" secondItem="ESa-HC-hYe" secondAttribute="leading" constant="20" id="SZu-X3-4A2"/>
+                            <constraint firstItem="3dl-uI-25h" firstAttribute="top" secondItem="ESa-HC-hYe" secondAttribute="top" constant="20" id="TL9-ud-Nd3"/>
+                            <constraint firstItem="6Sb-7q-6QQ" firstAttribute="top" secondItem="ESa-HC-hYe" secondAttribute="top" constant="20" id="fqx-ts-1XR"/>
+                            <constraint firstItem="6Sb-7q-6QQ" firstAttribute="leading" secondItem="3dl-uI-25h" secondAttribute="trailing" constant="20" id="hHG-J7-wqp"/>
+                            <constraint firstItem="Wf9-0V-nno" firstAttribute="top" secondItem="3dl-uI-25h" secondAttribute="bottom" constant="20" id="nXY-xd-R0c"/>
+                            <constraint firstItem="Wf9-0V-nno" firstAttribute="bottom" secondItem="ESa-HC-hYe" secondAttribute="bottom" id="oSK-xj-Yc2"/>
+                            <constraint firstItem="Wf9-0V-nno" firstAttribute="leading" secondItem="ESa-HC-hYe" secondAttribute="leading" constant="20" id="oiS-2H-cJ3"/>
+                            <constraint firstItem="ESa-HC-hYe" firstAttribute="trailing" secondItem="Wf9-0V-nno" secondAttribute="trailing" constant="20" id="rGl-E1-hch"/>
+                            <constraint firstItem="ESa-HC-hYe" firstAttribute="trailing" secondItem="6Sb-7q-6QQ" secondAttribute="trailing" constant="20" id="vkl-bb-m3N"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="snC-N2-RCP"/>
@@ -73,7 +79,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wNM-Pu-p2s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2540.579710144928" y="-264.50892857142856"/>
+            <point key="canvasLocation" x="2540" y="-264.53201970443348"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -681,6 +687,7 @@
     </scenes>
     <resources>
         <image name="logo" width="225" height="225"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

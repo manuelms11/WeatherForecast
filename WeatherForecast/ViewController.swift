@@ -49,6 +49,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
     let db = Firestore.firestore()
+    let API_KEY = "baeb03b0e9ec31b6617dc6aa6aa6c170"
     var cities:[City]?{
         didSet{
             self.favoritesTableView.reloadData()
@@ -79,8 +80,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         guard let locValue: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
         let location: Latlon = Latlon.init(latitude: locValue.latitude, longitude: locValue.longitude)
-        self.getOpenWeatherRequest(location: location, requestType: "fullWeather", appID: "4ad5d0f1a33b949d560666d16f95a433")
-        self.getOpenWeatherRequest(location: location, requestType: "ReverseGeocoding", appID: "4ad5d0f1a33b949d560666d16f95a433")
+        self.getOpenWeatherRequest(location: location, requestType: "fullWeather", appID: self.API_KEY)
+        self.getOpenWeatherRequest(location: location, requestType: "ReverseGeocoding", appID: self.API_KEY)
         
     }
 
@@ -284,10 +285,12 @@ extension ViewController:UITableViewDelegate, UITableViewDataSource{
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let cities = self.cities else {
-           return 0
-          }
-          return cities.count
+        if cities?.count == 0 {
+            tableView.setEmptyMessage("Add some favorites")
+        } else {
+            tableView.restore()
+        }
+        return cities!.count
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -304,7 +307,7 @@ extension ViewController:UITableViewDelegate, UITableViewDataSource{
        
         
         if let cities = self.cities{
-            getOpenWeatherRequest(location: cities[indexPath.section].location.latlon, requestType: "fullWeatherCell", appID: "4ad5d0f1a33b949d560666d16f95a433", cell: cell)
+            getOpenWeatherRequest(location: cities[indexPath.section].location.latlon, requestType: "fullWeatherCell", appID: self.API_KEY, cell: cell)
             cell.cellLocationLabel?.text = cities[indexPath.section].name
             /*cell.cellContentView.applyShadowDesignUIView()*/
         }
@@ -361,3 +364,22 @@ extension UIImageView {
     }
 }
 
+extension UITableView {
+    func setEmptyMessage(_ message: String) {
+        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
+        messageLabel.text = message
+        messageLabel.textColor = .black
+        messageLabel.numberOfLines = 0
+        messageLabel.textAlignment = .center
+        messageLabel.font = UIFont(name: "TrebuchetMS", size: 15)
+        messageLabel.sizeToFit()
+
+        self.backgroundView = messageLabel
+        self.separatorStyle = .none
+    }
+
+    func restore() {
+        self.backgroundView = nil
+        self.separatorStyle = .singleLine
+    }
+}
