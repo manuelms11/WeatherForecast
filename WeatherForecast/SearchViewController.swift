@@ -90,7 +90,7 @@ extension SearchViewController:UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let contextItem = UIContextualAction(style: .normal, title: "Favorito") { (action, view, bool) in
             
-            let city = self.cities[indexPath.row]
+            let city = self.cities[indexPath.section]
             self.addToFavorites(city: city)
         }
         
